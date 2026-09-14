@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>הדמיה: מיני-סייט קולנועי</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;800;900&family=Rubik:wght@800;900&display=swap">
+<style>
+:root{--c0:#0B1030;--c1:#1E2A78;--c2:#3B4FE4;--c3:#FF6B1A;--c4:#F59E0B;--ink:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--c0);color:var(--ink);font-family:Heebo,system-ui,sans-serif;overflow-x:hidden}
+h1,h2{font-family:Rubik,Heebo,sans-serif;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.bg{position:fixed;inset:0;z-index:0;background:radial-gradient(120% 80% at 50% 30%,var(--a,#1E2A78),var(--c0) 70%);transition:background .2s}
+.noise{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.6'/></svg>")}
+.glow{position:fixed;left:50%;top:38%;width:80vw;max-width:520px;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,var(--a,#3B4FE4) 0%,transparent 60%);filter:blur(40px);opacity:.55;z-index:1;pointer-events:none}
+.top{position:fixed;inset:0 0 auto;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;font-weight:800;font-size:13px}
+.top .brand{font-family:Rubik;font-size:16px}.top .cta{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(10px);padding:8px 14px;border-radius:999px}
+.prog{position:fixed;top:0;right:0;left:0;height:3px;background:linear-gradient(90deg,var(--c3),var(--c4));transform-origin:right;transform:scaleX(0);z-index:30}
+/* האובייקט הנעוץ: כרטיס העסק כ"מוצר" תלת-ממדי */
+.stage{position:fixed;left:50%;top:36%;z-index:5;transform:translate(-50%,-50%);perspective:1200px;pointer-events:none}
+.obj{position:relative;width:min(54vw,300px);aspect-ratio:3/4.4;border-radius:38px;transform-style:preserve-3d;transform:rotateY(-18deg) rotateX(6deg);transition:transform .08s linear;animation:float 5s ease-in-out infinite}
+@keyframes float{0%,100%{translate:0 0}50%{translate:0 -10px}}
+.obj .face{position:absolute;inset:0;border-radius:38px;overflow:hidden;background:#111;box-shadow:0 60px 80px -40px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.15) inset}
+.obj .face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.1) contrast(1.05)}
+.obj .rim{position:absolute;inset:0;border-radius:38px;background:linear-gradient(115deg,rgba(255,255,255,.55),transparent 30%,transparent 65%,rgba(255,255,255,.25));mix-blend-mode:screen;pointer-events:none}
+.obj .side{position:absolute;inset:0;border-radius:38px;transform:translateZ(-26px);background:linear-gradient(180deg,var(--a,#3B4FE4),#000)}
+.obj .label{position:absolute;right:0;left:0;bottom:0;padding:18px 16px 20px;background:linear-gradient(to top,rgba(0,0,0,.85),transparent);transform:translateZ(1px)}
+.obj .label b{display:block;font-family:Rubik;font-size:22px;line-height:1.1}.obj .label small{opacity:.85;font-size:12px}
+.obj .badge{position:absolute;top:14px;right:14px;background:#22C55E;color:#052e16;font-weight:900;font-size:11px;padding:5px 10px;border-radius:999px;transform:translateZ(30px)}
+.obj .shadow{position:absolute;left:10%;right:10%;bottom:-40px;height:40px;border-radius:50%;background:rgba(0,0,0,.6);filter:blur(18px);transform:translateZ(-60px)}
+/* מקטעי טקסט */
+main{position:relative;z-index:10}
+.spacer{height:78vh}
+.sec{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 22px 12vh;position:relative}
+.sec .eyebrow{font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--c4);display:flex;align-items:center;gap:8px}
+.sec .eyebrow::before{content:"";width:26px;height:2px;background:var(--c4)}
+.sec h2{font-size:clamp(30px,9vw,54px);line-height:1;margin-top:8px;max-width:11ch}
+.sec p{max-width:34ch;font-size:15px;line-height:1.65;color:rgba(255,255,255,.82);margin:12px 0 0}
+.sec .in{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .7s cubic-bezier(.2,.8,.2,1);margin:0 -22px;padding:70px 22px 0;background:linear-gradient(to top,rgba(5,8,25,.92) 55%,rgba(5,8,25,.55) 80%,transparent)}
+.sec.on .in{opacity:1;transform:none}
+.big{position:absolute;inset:auto 0 45vh;text-align:center;font-family:Rubik;font-weight:900;font-size:clamp(56px,20vw,160px);line-height:.9;color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.35);opacity:0;transform:scale(.9);transition:opacity .8s,transform 1s;pointer-events:none;z-index:-1;white-space:nowrap}
+.sec.on .big{opacity:1;transform:scale(1)}
+.kpis{display:flex;gap:10px;margin-top:16px}.kpi{flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(10px);border-radius:16px;padding:12px 10px;text-align:center}
+.kpi b{font-family:Rubik;font-size:24px;display:block}.kpi small{font-size:11px;opacity:.8}
+/* הליין-אפ: השירותים כ"פחיות" */
+.lineup{position:relative;z-index:10;padding:8vh 0 4vh}
+.lineup h2{padding:0 22px;font-size:26px}
+.cans{display:flex;gap:14px;padding:26px 22px 40px;overflow-x:auto;scroll-snap-type:x mandatory;perspective:900px;scrollbar-width:none}.cans::-webkit-scrollbar{display:none}
+.can{scroll-snap-align:center;flex:0 0 118px;height:220px;border-radius:60px/34px;position:relative;transform:rotateY(var(--ry,0deg));transition:transform .4s;box-shadow:0 30px 40px -24px rgba(0,0,0,.9),inset -18px 0 30px rgba(0,0,0,.45),inset 18px 0 30px rgba(255,255,255,.12)}
+.can::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(90deg,rgba(0,0,0,.35),transparent 30%,rgba(255,255,255,.28) 48%,transparent 60%,rgba(0,0,0,.35))}
+.can::after{content:"";position:absolute;left:12%;right:12%;top:-10px;height:22px;border-radius:50%;background:#d1d5db;box-shadow:inset 0 -6px 10px rgba(0,0,0,.35)}
+.can span{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:14px}
+.can b{font-family:Rubik;font-size:17px;line-height:1.05}.can i{font-style:normal;font-size:28px}.can small{font-size:11px;background:rgba(0,0,0,.35);padding:3px 8px;border-radius:999px}
+/* FAQ + CTA */
+.faq{position:relative;z-index:10;padding:0 22px 40px}
+.faq details{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:12px 14px;margin-bottom:8px}
+.faq summary{font-weight:800;cursor:pointer;list-style:none}.faq p{margin:8px 0 0;font-size:14px;color:rgba(255,255,255,.8)}
+.ctas{position:fixed;bottom:0;right:0;left:0;z-index:25;display:flex;gap:10px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(to top,rgba(5,8,25,.95),rgba(5,8,25,0))}
+.ctas a{flex:1;text-align:center;padding:14px;border-radius:16px;font-weight:900;text-decoration:none;color:#fff;backdrop-filter:blur(12px)}
+.ctas .call{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3)}.ctas .book{background:linear-gradient(105deg,var(--c3),var(--c4));color:#1a0b00;box-shadow:0 12px 30px -12px rgba(255,107,26,.8)}
+.hint{position:fixed;left:50%;bottom:86px;transform:translateX(-50%);z-index:20;font-size:12px;opacity:.75;animation:bounce 1.6s infinite}
+@keyframes bounce{0%,100%{translate:0 0}50%{translate:0 6px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="bg" id="bg"></div><div class="glow" id="glow"></div><div class="noise"></div>
+<div class="top"><span class="brand">פרויקט X</span><span class="cta">💬 צ'אט עם העסק</span></div>
+
+<div class="stage"><div class="obj" id="obj">
+  <div class="side"></div>
+  <div class="face"><img src="../photos/barber.jpg" alt=""><div class="rim"></div><span class="badge">✓ מאומת</span><div class="label"><b>ברברשופ אבי</b><small>ברברשופ · תל אביב · 4.8 ★ (212)</small></div></div>
+  <div class="shadow"></div>
+</div></div>
+<div class="hint" id="hint">↓ גללו</div>
+
+<main>
+  <div class="spacer"></div>
+
+  <section class="sec" data-a="#1E2A78"><div class="in">
+    <div class="eyebrow">ברברשופ אבי · מאז 2011</div>
+    <h2>תספורת שמדברת בעד עצמה.</h2>
+    <p>ארבעה ספרים, כיסאות וינטג', מוזיקה טובה וקפה על הבית. בלי תורים ארוכים, בלי הפתעות במחיר.</p>
+  </div></section>
+
+  <section class="sec" data-a="#3B4FE4"><div class="big">פייד</div><div class="in">
+    <div class="eyebrow">01 · המומחיות</div>
+    <h2>פייד מדויק. בכל פעם.</h2>
+    <p>סקין פייד, טייפר, קלאסי ומספריים. עיצוב זקן עם תער חם ומגבת חמה. 30 דקות, 70 ₪.</p>
+  </div></section>
+
+  <section class="sec" data-a="#FF6B1A"><div class="big">בלי הפתעות</div><div class="in">
+    <div class="eyebrow">02 · המחיר</div>
+    <h2>המחיר סגור לפני שמתיישבים.</h2>
+    <p>מחירון ברור על הקיר ובאתר. תספורת 70 ₪, זקן 40 ₪, ילדים 55 ₪. משלמים בביט, אשראי או מזומן.</p>
+    <div class="kpis"><div class="kpi"><b>70 ₪</b><small>תספורת</small></div><div class="kpi"><b>~15</b><small>דק' המתנה</small></div><div class="kpi"><b>4.8</b><small>212 ביקורות</small></div></div>
+  </div></section>
+
+  <section class="sec" data-a="#F59E0B"><div class="big">212</div><div class="in">
+    <div class="eyebrow">03 · הלקוחות</div>
+    <h2>"יצאתי בן אדם אחר."</h2>
+    <p>212 ביקורות מאומתות, 96% ממליצים. הכי הרבה מזכירים: דיוק, יחס, ושהכל נשאר נקי.</p>
+  </div></section>
+
+  <div class="lineup">
+    <h2>מה עושים היום?</h2>
+    <div class="cans" id="cans">
+      <div class="can" style="background:linear-gradient(180deg,#3B4FE4,#0B1030)"><span><i>💈</i><b>פייד</b><small>30 דק' · 70 ₪</small></span></div>
+      <div class="can" style="background:linear-gradient(180deg,#FF6B1A,#3a0b00)"><span><i>🧔</i><b>עיצוב זקן</b><small>20 דק' · 40 ₪</small></span></div>
+      <div class="can" style="background:linear-gradient(180deg,#22C55E,#052e16)"><span><i>✂️</i><b>מספריים</b><small>30 דק' · 80 ₪</small></span></div>
+      <div class="can" style="background:linear-gradient(180deg,#8B5CF6,#1e0b3a)"><span><i>🧒</i><b>ילדים</b><small>20 דק' · 55 ₪</small></span></div>
+      <div class="can" style="background:linear-gradient(180deg,#F59E0B,#3a2200)"><span><i>🎨</i><b>צבע</b><small>60 דק' · 180 ₪</small></span></div>
+      <div class="can" style="background:linear-gradient(180deg,#0EA5E9,#082f49)"><span><i>💆</i><b>טיפול פנים</b><small>25 דק' · 90 ₪</small></span></div>
+    </div>
+  </div>
+
+  <div class="faq">
+    <h2 style="font-size:26px;margin-bottom:12px">שאלות נפוצות</h2>
+    <details open><summary>צריך לקבוע תור?</summary><p>אפשר להגיע בלי תור, אבל עם תור מובטח שלא תחכו. קובעים כאן בשתי לחיצות.</p></details>
+    <details><summary>מה עם ילדים?</summary><p>מגיל 3, עם כיסא מיוחד ומסך. 20 דקות, 55 ₪.</p></details>
+    <details><summary>איפה חונים?</summary><p>חניון "הבימה", 5 דקות הליכה. בשישי בבוקר יש חניה ברחוב.</p></details>
+    <div style="height:90px"></div>
+  </div>
+</main>
+
+<div class="ctas"><a class="call" href="#">📞 חיוג</a><a class="book" href="#">📅 קביעת תור</a></div>
+
+<script>
+(function(){
+var R=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var obj=document.getElementById("obj"),bg=document.getElementById("bg"),glow=document.getElementById("glow"),prog=document.getElementById("prog"),hint=document.getElementById("hint");
+var secs=[].slice.call(document.querySelectorAll(".sec"));
+function hex(h){return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)]}
+function mix(a,b,t){var A=hex(a),B=hex(b);return "rgb("+A.map(function(v,i){return Math.round(v+(B[i]-v)*t)}).join(",")+")"}
+var colors=["#1E2A78"].concat(secs.map(function(s){return s.dataset.a}));
+function onScroll(){var y=window.scrollY,h=document.documentElement,p=y/(h.scrollHeight-h.clientHeight);prog.style.transform="scaleX("+p+")";hint.style.opacity=y>80?0:.75;
+ // סיבוב האובייקט לפי הגלילה + התרחקות בסוף
+ var rot=-18+y*0.12,scale=1,lift=0;var end=document.querySelector(".lineup").getBoundingClientRect().top;if(end<window.innerHeight){var t=Math.min(1,(window.innerHeight-end)/(window.innerHeight*0.6));scale=1-0.5*t;lift=-t*60;obj.style.opacity=1-t}else obj.style.opacity=1;
+ if(!R)obj.style.transform="translateY("+lift+"px) rotateY("+rot+"deg) rotateX("+(6+Math.sin(y/300)*4)+"deg) scale("+scale+")";
+ // צבע הרקע נמזג בין המקטעים
+ var idx=0,frac=0;secs.forEach(function(s,i){var r=s.getBoundingClientRect();var c=window.innerHeight*0.75;if(r.top<c){idx=i+1;frac=Math.min(1,(c-r.top)/(r.height*0.6))}});
+ var from=colors[Math.max(0,idx-1)],to=colors[Math.min(colors.length-1,idx)];var col=idx===0?colors[0]:mix(from,to,frac);
+ bg.style.setProperty("--a",col);glow.style.setProperty("--a",col);obj.style.setProperty("--a",col)}
+window.addEventListener("scroll",onScroll,{passive:true});onScroll();
+var io=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle("on",e.isIntersecting)})},{threshold:.35});secs.forEach(function(s){io.observe(s)});
+// הליין-אפ: פחיות מסתובבות לפי המרחק מהמרכז
+var cans=document.getElementById("cans");function spin(){var r=cans.getBoundingClientRect(),cx=r.left+r.width/2;[].forEach.call(cans.children,function(c){var cr=c.getBoundingClientRect();var d=(cr.left+cr.width/2-cx)/r.width;c.style.setProperty("--ry",(d*-45)+"deg");c.style.transform="rotateY("+(d*-45)+"deg) scale("+(1-Math.abs(d)*0.25)+")"})}
+cans.addEventListener("scroll",spin,{passive:true});spin();
+})();
+</script>
+</body>
+</html>
